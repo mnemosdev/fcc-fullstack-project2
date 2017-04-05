@@ -18,7 +18,7 @@ module.exports = function (app, passport) {
 	
 	app.route('/')
 		.get(function (req, res) {
-			res.render(path + '/public/index');
+			res.render(path + '/public/index', { user : req.user });
 		});
 
 	app.route('/login')
@@ -26,7 +26,7 @@ module.exports = function (app, passport) {
 			res.render(path + '/public/login', { message: req.flash('loginMessage') });
 		})
 		.post(passport.authenticate('local-login', {
-	        successRedirect : '/profile', // redirect to the secure profile section
+	        successRedirect : '/', // redirect to the secure profile section
 	        failureRedirect : '/login', // redirect back to the signup page if there is an error
 	        failureFlash : true // allow flash messages
     	}));
@@ -36,7 +36,7 @@ module.exports = function (app, passport) {
 			res.render(path + '/public/signup', { message: req.flash('signupMessage') });
 		})
 		.post(passport.authenticate('local-signup', {
-	        successRedirect : '/profile', // redirect to the secure profile section
+	        successRedirect : '/', // redirect to the secure profile section
 	        failureRedirect : '/signup', // redirect back to the signup page if there is an error
 	        failureFlash : true // allow flash messages
     	}));

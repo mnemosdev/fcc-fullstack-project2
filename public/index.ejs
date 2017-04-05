@@ -1,25 +1,74 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
+    <title>FCC Nightlife App</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link href="/public/css/materialize.min.css" rel="stylesheet" type="text/css">
+	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/js/materialize.min.js"></script>
     <style>
         body        { padding-top:80px; }
+        .result {
+            position: relative;
+        }
+        .result img {
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            -webkit-box-shadow: -3px 20px 43px -19px rgba(0,0,0,0.75);
+            -moz-box-shadow: -3px 20px 43px -19px rgba(0,0,0,0.75);
+            box-shadow: -3px 20px 43px -19px rgba(0,0,0,0.75);
+            display: block;
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            transform: translateX(-20%) translateY(-10%);
+        }
+        .result img:before {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .result p {
+            float: right;
+        }
+        .result:after{
+            content: "";
+            display: table;
+            clear: both;
+        }
     </style>
 </head>
 <body>
 <div class="container">
 
     <div class="jumbotron text-center">
-        <h1>Home page</h1>
-
-
+        <% if (user) { %>
+          <p class="pull-right clearfix"><%= user.local.email %></p>
+        <% } %>
+        <h1 class="clearfix">FCC Nightlife App</h1>
+        <% if (!user) { %>
         <a href="/login" class="btn btn-default"><span class="fa fa-user"></span>Login</a>
         <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span>Signup</a>
+        <% } %>
+        <% if (user) { %>
         <a href="/profile" class="btn btn-default"><span class="fa fa-user">Profile</span></a>
+        <% } %>
+        
+        <div style="margin-top: 100px;">
+            <form id="searchapiform" class="input-field">
+                <input class="input-field" type="text" placeholder="a place" />
+                <button id="searchapi" class="btn" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-
+    
+    <div id="searchresults">
+        
+    </div>
+    <script src="./controllers/app.js" type="text/javascript"></script>
 </div>
 </body>
 </html>

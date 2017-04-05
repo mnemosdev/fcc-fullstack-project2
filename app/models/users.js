@@ -18,17 +18,8 @@ var userSchema = mongoose.Schema({
 		username: String,
     	publicRepos: Number
 	},
-    facebook         : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    },
-    twitter          : {
-        id           : String,
-        token        : String,
-        displayName  : String,
-        username     : String
+    rsvp         : {
+        id           : String
     },
     google           : {
         id           : String,
