@@ -17,17 +17,22 @@ module.exports = function (app, passport) {
 
 	
 	app.route('/')
-		.get(isLoggedIn, function (req, res) {
-			res.render(path + '/public/index', { user : req.user });
+		.get(function (req, res) {
+			res.render(path + '/public/index');
 		});
 
 	app.route('/login')
 		.get(function (req, res) {
-			res.render(path + '/public/login');
+			res.render(path + '/public/login', { message: req.flash('loginMessage') });
+		});
+		
+	app.route('/signup')
+		.get(function (req, res) {
+			res.render(path + '/public/signup', { message: req.flash('signupMessage') });
 		});
 
 	app.route('/logout')
-		.get(function (req, res) {
+		.get(isLoggedIn, function (req, res) {
 			req.logout();
 			res.redirect('/login');
 		});

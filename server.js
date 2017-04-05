@@ -11,6 +11,7 @@ var session = require('express-session');
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
+var flash = require('connect-flash');
 
 /*
 *@ Express app
@@ -67,6 +68,7 @@ app.use(session({
 */
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 /*
 *@ Routing
