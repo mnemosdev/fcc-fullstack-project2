@@ -86,12 +86,12 @@ module.exports = function (app, passport) {
 	/*
 	*@ Catch 'em all 404s
 	*/
-	app.all('*', function(req, res){
+	/*app.all('*', function(req, res){
 		/*
 		*@ Add 404 redirect
 		*@
 		*@ res.redirect('/404');
 		*/
-		res.send("404, page not found");
-	})
+		/*res.send("404, page not found");
+	})*/
 };

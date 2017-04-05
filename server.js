@@ -12,6 +12,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var flash = require('connect-flash');
+var yelpsearch = require('./app/routes/yelpsearch.js');
 
 /*
 *@ Express app
@@ -75,6 +76,7 @@ app.use(flash());
 *@ Routing
 */
 routes(app, passport);
+yelpsearch(app);
 
 /*
 *@ Server
