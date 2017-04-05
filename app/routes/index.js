@@ -24,12 +24,22 @@ module.exports = function (app, passport) {
 	app.route('/login')
 		.get(function (req, res) {
 			res.render(path + '/public/login', { message: req.flash('loginMessage') });
-		});
+		})
+		.post(passport.authenticate('local-login', {
+	        successRedirect : '/profile', // redirect to the secure profile section
+	        failureRedirect : '/login', // redirect back to the signup page if there is an error
+	        failureFlash : true // allow flash messages
+    	}));
 		
 	app.route('/signup')
 		.get(function (req, res) {
 			res.render(path + '/public/signup', { message: req.flash('signupMessage') });
-		});
+		})
+		.post(passport.authenticate('local-signup', {
+	        successRedirect : '/profile', // redirect to the secure profile section
+	        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+	        failureFlash : true // allow flash messages
+    	}));
 
 	app.route('/logout')
 		.get(isLoggedIn, function (req, res) {

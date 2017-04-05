@@ -40,6 +40,7 @@ require('dotenv').load();
 */
 require('./app/config/passport-github')(passport);
 require('./app/config/passport-google')(passport);
+require('./app/config/passport')(passport); // pass passport for configuration
 
 /*
 *@ MongoDB connect Mongoose Driver
