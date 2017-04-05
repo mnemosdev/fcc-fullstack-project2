@@ -62,7 +62,7 @@
                     if(data.found == "true"){
                         $("h1").append("<h2 style='font-size: 18px;'>You rsvp already</h2>");
                         $("h2").fadeOut(4000);
-                        $("#" + data.id + " i.fa-bookmark").css('color', 'red');
+                        $("#" + data.id + " i.fa-bookmark").css('color', 'blue');
                     }else if(data.added == 'true'){
                         $("#" + data.id + " i.fa-bookmark").css('color', 'red');
                     }

@@ -87,6 +87,8 @@ module.exports = function (app, passport) {
 		.post(function(req, res){
 			var rsvp = req.body.id;
 			// console.log(req.user);
+			var rsvpindex;
+			var rsvparray = [];
 			if(req.user == undefined){
 				res.json({ 'registered' : 'false' });
 			} else {
@@ -96,8 +98,24 @@ module.exports = function (app, passport) {
 					if (err) throw err;
 					// console.log('data', data, 'data.rsvp', data[0].rsvp, 'data[0]', data[0]);
 					if(data[0].rsvp.find(function(current, index, array){
+						if(rsvp == current){
+							rsvpindex = index;
+						}
 						return rsvp == current;
 					})){
+						data[0].rsvp.splice(rsvpindex, 1);
+						console.log(data[0].rsvp);
+						User.update(
+							{ _id : user._id },
+							{
+								rsvp : data[0].rsvp
+							},
+							function(err, result){
+								if(err){
+									throw err;
+								}
+							}
+						)
 						res.json({ 'found' : 'true' , 'id' : rsvp });
 					} else {
 						User.update(
