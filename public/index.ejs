@@ -9,9 +9,16 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/public/js/materialize.min.js"></script>
     <style>
-        body        { padding-top:80px; }
+        body { 
+            padding-top:80px;
+            background: #fff url('../public/img/fccnightlifeappminified.jpg') no-repeat;
+            background-attachment: fixed;
+        }
         .result {
             position: relative;
+            font-family: 'Roboto';
+            font-size: 2em;
+            background-color: #fff;
         }
         .result img {
             width: 200px;
@@ -33,25 +40,56 @@
         }
         .result p {
             float: right;
+            background-color: #fff;
         }
         .result:after{
             content: "";
             display: table;
             clear: both;
         }
+        .result a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+           font-family: SensationsAndQualities; 
+           font-size: 5em;
+           position: fixed;
+           top: 5%;
+           left: 5%;
+        }
+        .app {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(50%);
+        }
+        .app form {
+            width: 500px;
+        }
+        #searchresults {
+            margin: 20% auto 0;
+        }
+        form {
+            color: #fff;
+        }
+        .rsvp {
+            cursor: pointer;
+        }
+        .rsvp:hover {
+            color: red;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-
-    <div class="jumbotron text-center">
+    <h1 class="clearfix">FCC Nightlife App</h1>
+    <div class="text-center app">
         <% if (user) { %>
           <p class="pull-right clearfix"><%= user.local.email %></p>
         <% } %>
-        <h1 class="clearfix">FCC Nightlife App</h1>
         <% if (!user) { %>
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span>Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span>Signup</a>
+        <a href="/login" class="btn btn-default red"><span class="fa fa-user"></span>Login</a>
+        <a href="/signup" class="btn btn-default red"><span class="fa fa-user"></span>Signup</a>
         <% } %>
         <% if (user) { %>
         <a href="/profile" class="btn btn-default"><span class="fa fa-user">Profile</span></a>
@@ -60,7 +98,7 @@
         <div style="margin-top: 100px;">
             <form id="searchapiform" class="input-field">
                 <input class="input-field" type="text" placeholder="a place" />
-                <button id="searchapi" class="btn" type="submit">Search</button>
+                <button id="searchapi" class="btn-floating btn-large waves-effect waves-light red" type="submit"><i class="fa fa-search"></i></i></button>
             </form>
         </div>
     </div>

@@ -27,9 +27,10 @@
                 }
                 var elheader = "<div id='" + current.id + "' class='jumbotron result clearfix'>";
                 var el = 
-                    "<img class='img-responsive pull-left clearfix' src='" + current.image_url + "' />" + 
+                    "<img class='img-responsive pull-left clearfix' src='" + current.image_url + "' />" +
+                    "<p class='clearfix'>RSVP   <i class='fa fa-bookmark rsvp' aria-hidden='true'></i></p>" + 
                     "<p class='clearfix'>" + current.phone + "   <i class='fa fa-phone' aria-hidden='true'></i></p>" +
-                    "<p class='clearfix'><a href='" + current.url + "'>" + current.name + "</a>   <i class='fa fa-cutlery' aria-hidden='true'></i></p>" +
+                    "<p class='clearfix'><a href='" + current.url + "' target='_blank'>" + current.name + "</a>   <i class='fa fa-cutlery' aria-hidden='true'></i></p>" +
                     "<p class='clearfix'>" + current.rating + "   <i class='fa fa-star' aria-hidden='true'></i></p>" +
                     "<p class='clearfix'>" + current.price + "   <i class='fa fa-money' aria-hidden='true'></i></p>"
                     "</div>";
@@ -46,5 +47,13 @@
         .fail(function(jqXHR, status, err){
             console.error('ajax request failed', err);
         });
+    })
+    
+    $(".rsvp").on('click', function(e){
+        e.preventDefault();
+        var el = $(this).parent().parent();
+        var elid = el.prop('id');
+        console.log(el, elid);
+        console.log("working");
     })
 })(jQuery);
