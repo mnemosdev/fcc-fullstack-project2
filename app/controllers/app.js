@@ -5,6 +5,7 @@
     *@ Main app.js FCC Nightlife App by mnemosdev
     */
     var URL = "https://fcc-nightlifeapp-mnemosdev.c9users.io/search/";
+    var URL_RSVP = "https://fcc-nightlifeapp-mnemosdev.c9users.io/rsvp";
     $("#searchapiform").on('submit', function(e){
         e.preventDefault();
         var searchfor = $("#searchapiform input").val();
@@ -41,19 +42,39 @@
                     elheader += "<p style='width: 20px; height: 20px; background-color: green; border-radius: 50%;' class='clearfix'></p>";
                 }
                 el = elheader + el + elfooter;
-                $("#searchresults").append(el)
-            })
+                $("#searchresults").append(el);
+            });
+            
+            $('.rsvp').on('click', function(e){
+                var el = $(this).parent().parent();
+                var elid = el[0].id;
+                $.ajax({
+                    type: 'POST',
+                    url: URL_RSVP,
+                    data: { 'id' : elid }
+                })
+                .done(function(data, status, jqXHR){
+                    console.log(data);
+                    if(data.registered == "false"){
+                        $("h1").append("<h2 style='font-size: 18px;'>You must register to be able to rsvp</h2>");
+                        $("h2").fadeOut(4000);
+                    }
+                    if(data.found == "true"){
+                        $("h1").append("<h2 style='font-size: 18px;'>You rsvp already</h2>");
+                        $("h2").fadeOut(4000);
+                        $("#" + data.id + " i.fa-bookmark").css('color', 'red');
+                    }else if(data.added == 'true'){
+                        $("#" + data.id + " i.fa-bookmark").css('color', 'red');
+                    }
+                })
+                .fail(function(jqXHR, status, err){
+                    console.log(err);
+                });
+            });
+            
         })
         .fail(function(jqXHR, status, err){
             console.error('ajax request failed', err);
         });
-    })
-    
-    $(".rsvp").on('click', function(e){
-        e.preventDefault();
-        var el = $(this).parent().parent();
-        var elid = el.prop('id');
-        console.log(el, elid);
-        console.log("working");
-    })
+    });
 })(jQuery);

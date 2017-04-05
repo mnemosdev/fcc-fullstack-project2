@@ -1,6 +1,7 @@
 'use strict';
 
 var path = process.cwd();
+var User = require('../models/users.js');
 
 /*
 *@ Routes
@@ -82,7 +83,42 @@ module.exports = function (app, passport) {
 		
 		
 	
-		
+	app.route('/rsvp')
+		.post(function(req, res){
+			var rsvp = req.body.id;
+			// console.log(req.user);
+			if(req.user == undefined){
+				res.json({ 'registered' : 'false' });
+			} else {
+				var user = req.user;
+				
+				User.find({ _id : user._id }, function(err, data){
+					if (err) throw err;
+					// console.log('data', data, 'data.rsvp', data[0].rsvp, 'data[0]', data[0]);
+					if(data[0].rsvp.find(function(current, index, array){
+						return rsvp == current;
+					})){
+						res.json({ 'found' : 'true' , 'id' : rsvp });
+					} else {
+						User.update(
+							{ _id : user._id },
+							{
+								$push : { 
+									rsvp : rsvp
+								}
+							},
+							function(err, result){
+								if(err){
+									throw err;
+								}
+								
+								res.json({ 'added' : 'true', 'id' : rsvp });
+							}
+						)
+					}
+				})
+			}
+		});
 	/*
 	*@ Catch 'em all 404s
 	*/
